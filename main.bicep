@@ -17,6 +17,8 @@ var containerGroupName = '${projectName}cg'
 var containerName = '${projectName}container'
 var roleNameStorageFileDataPrivilegedContributor = '69566ab7-960f-475b-8e7c-b3118f30c6bd'
 
+/*  ------------------------------------------ Storage Account ------------------------------------------ */
+
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: storageAccountName
   location: location
@@ -33,6 +35,8 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   }
 }
 
+/*  ------------------------------------------ File Share  ------------------------------------------ */
+
 resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-01-01' = {
   name: '${storageAccountName}/default/${fileShareName}'
   dependsOn: [
@@ -40,6 +44,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
   ]
 }
 
+/*  ------------------------------------------ Contianer Group ------------------------------------------ */
 resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01' = {
   name: containerGroupName
   location: location
@@ -79,25 +84,23 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01'
               mountPath: mountPath
             }
           ]
-       /*    command: [
-            '/bin/sh'
-            '-c'
-            'pwsh -c \'Start-Sleep -Seconds 1800\''
-          ] */
-          command: [
+      
+        /*   command: [
             '/bin/sh'
             '-c'
             'cd /mnt/azscripts/azscriptinput && pwsh ./hello.ps1 && pwsh -c "Start-Sleep -Seconds 1800"'
-          ]
+          ] */
+          
+           command: [
+            '/bin/sh'
+            '-c'
+            'cd /mnt/azscripts/azscriptinput && [ -f hello.ps1 ] && pwsh ./hello.ps1 || echo "File (hello.ps1) not found, please upload file (hello.ps1) in storage account (datasynchrostore) fileshare (datasynchroshare) and restart the container "; pwsh -c "Start-Sleep -Seconds 1800"'
+          ] 
           
         }
       }
     ]
-   /*  dnsConfig: {
-      nameServers: [
-        '10.221.2.4'
-      ]
-    } */
+   
     osType: 'Linux'
     volumes: [
       {
@@ -113,7 +116,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01'
   }
 }
 
-
+/*  ------------------------------------------ Virtual Network ------------------------------------------ */
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-11-01' = {
   name: 'container-dns-vnet'
   location: location
@@ -173,6 +176,23 @@ resource privateEndpointStorageFile 'Microsoft.Network/privateEndpoints@2023-11-
   }
 }
 
+/*  ------------------------------------------- private dns zone group  ------------------------------------------ */
+resource privateEndpointStorageFilePrivateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-05-01' = {
+  parent: privateEndpointStorageFile
+  name: 'filePrivateDnsZoneGroup'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'config'
+        properties: {
+          privateDnsZoneId: privateStorageFileDnsZone.id
+        }
+      }
+    ]
+  }
+}
+
+
 /*  ------------------------------------------ Private DNS Zone ------------------------------------------ */
 resource privateStorageFileDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: 'privatelink.file.core.windows.net'
@@ -189,31 +209,7 @@ resource privateStorageFileDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01
     }
   }
 
- /*  resource resRecord 'A' = {
-    name: storageAccount.name
-    properties: {
-      ttl: 10
-      aRecords: [
-        {
-          ipv4Address: first(first(privateEndpoint.properties.customDnsConfigs)!.ipAddresses)
-        }
-      ]
-    }
-  } */
-}
-resource privateEndpointStorageFilePrivateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-05-01' = {
-  parent: privateEndpointStorageFile
-  name: 'filePrivateDnsZoneGroup'
-  properties: {
-    privateDnsZoneConfigs: [
-      {
-        name: 'config'
-        properties: {
-          privateDnsZoneId: privateStorageFileDnsZone.id
-        }
-      }
-    ]
-  }
+
 }
 
 /*  ------------------------------------------ Managed Identity ------------------------------------------ */
@@ -239,7 +235,3 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
-
-// https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deployment-script-bicep-configure-dev
-
-// https://learn.microsoft.com/en-us/azure/container-instances/container-instances-custom-dns
