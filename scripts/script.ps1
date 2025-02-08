@@ -7,3 +7,9 @@ $fileShareName = 'datasynchroshare' #"${projectName}share"
 
 $context = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName).Context
 Set-AzStorageFileContent -Context $context -ShareName $fileShareName -Source $fileName -Force
+
+
+
+cd /mnt/azscripts/azscriptinput
+
+ls
