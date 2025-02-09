@@ -669,13 +669,12 @@ A container instance
 The deployment script
 
 
-![test1](https://github.com/user-attachments/assets/5aaa5490-a148-4c9f-b039-898e895f38d9)
-
-Additionally, we can also view the deployment script logs.
-
-![408822783-50013ad5-4882-49fa-a654-5ab82b42fafb](https://github.com/user-attachments/assets/a208c284-4e96-436f-aa45-8a870abd76c8)
+![fileshare](https://github.com/user-attachments/assets/44cad097-ab37-4450-a46c-4cbea1270a65)
 
 
+![container logs](https://github.com/user-attachments/assets/efd52bf3-47a5-48ce-b9f7-9379adbab88e)
+
+![container run](https://github.com/user-attachments/assets/9911a953-3416-4a3c-89ac-99029b3370e7)
 
 
 ```powershell
