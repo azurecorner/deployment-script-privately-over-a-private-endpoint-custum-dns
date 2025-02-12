@@ -174,7 +174,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
 - Named using the format: `${storageAccountName}/default/${fileShareName}`.  
 - **Depends on** the `storageAccount` resource, ensuring it is created first.  
 
-This configuration enhances security by restricting public access while allowing Azure services to interact with the storage securely. 🔒🚀  
+This configuration enhances security by restricting public access while allowing Azure services to interact with the storage securely. 
 
 ## 3. Configure role assignement
 
