@@ -176,7 +176,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
 
 This configuration enhances security by restricting public access while allowing Azure services to interact with the storage securely. 
 
-## 3. Configure role assignement
+## 4. Configure role assignement
 
 ```bicep
 /*  ------------------------------------------ Role Assignment ------------------------------------------ */
@@ -662,17 +662,19 @@ New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFil
 
 ## 7. Monitoring
 
-During the deployment of the deployment script, we can observe the following resources listed in the resource group:
-
-A storage account
-A container instance
-The deployment script
+You should upload the PowerShell file you want to run to the storage account file share, as shown below.
 
 
 ![fileshare](https://github.com/user-attachments/assets/44cad097-ab37-4450-a46c-4cbea1270a65)
 
+When you restart the container, the PowerShell script should execute automatically, as demonstrated.
+
+In this scenario, I am deploying the storage account and container instance at the same time, so I need to upload the PowerShell file and then restart the container.
+However, if you already have a storage account with the PowerShell script in place, there is no need to restart the container.
 
 ![container logs](https://github.com/user-attachments/assets/efd52bf3-47a5-48ce-b9f7-9379adbab88e)
+
+You can also open a shell (/bin/sh) inside the container  and run script manualy
 
 ![container run](https://github.com/user-attachments/assets/9911a953-3416-4a3c-89ac-99029b3370e7)
 
@@ -709,3 +711,7 @@ pwsh ./hello.ps1
    - **Execute Shell Command:** Uses `az container exec` to open a shell (`/bin/sh`) inside the container.
    - **Navigate and List Files:** Once inside the container, changes directory to `/mnt/azscripts/azscriptinput` and lists the directory contents.
    - **Run Script:** Executes the PowerShell script `hello.ps1` using `pwsh` if it is present in that directory.
+
+## 8. Github Repository
+
+https://github.com/azurecorner/deployment-script-privately-over-a-private-endpoint-custum-dns
