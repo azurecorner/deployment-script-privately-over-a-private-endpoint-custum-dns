@@ -38,7 +38,7 @@ To run deployment scripts privately, you need the following infrastructure:
 
 ---
 
-## 3. Infrastructure
+## 2. Infrastructure
 ```bicep
 /*  ------------------------------------------ Virtual Network ------------------------------------------ */
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-11-01' = {
@@ -176,7 +176,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
 
 This configuration enhances security by restricting public access while allowing Azure services to interact with the storage securely. 🔒🚀  
 
-## 4. Configure role assignement
+## 3. Configure role assignement
 
 ```bicep
 /*  ------------------------------------------ Role Assignment ------------------------------------------ */
@@ -280,7 +280,7 @@ resource privateEndpointStorageFilePrivateDnsZoneGroup 'Microsoft.Network/privat
 
 This setup enhances **security** and **network isolation**, ensuring that storage traffic remains **private** and protected. 🔒🚀  
 
-## 4. Configure a Container Instance  
+## 5. Configure a Container Instance  
 
 ```bicep
 
@@ -660,7 +660,7 @@ az group create -l $resourceGroupLocation -n $resourceGroupName
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFile -DeploymentDebugLogLevel All  
 ```
 
-## 5. Monitoring
+## 6. Monitoring
 
 During the deployment of the deployment script, we can observe the following resources listed in the resource group:
 
