@@ -104,7 +104,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-
 
 ```
 
-### Explanation of the Code  
+ 
 
 #### **Virtual Network**  
 - Defines an **Azure Virtual Network (VNet)** named `container-dns-vnet`.  
@@ -158,7 +158,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
 
 ```
 
-### Explanation of the Code  
+ 
 
 #### **Storage Account**  
 - Defines an **Azure Storage Account** with the name `storageAccountName`.  
@@ -198,7 +198,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
 
 
 ``` 
-### Explanation of the Code  
+ 
 
 #### **Role Assignment**  
 
@@ -261,7 +261,7 @@ resource privateEndpointStorageFilePrivateDnsZoneGroup 'Microsoft.Network/privat
 
 ``` 
 
-### Explanation of the Code  
+ 
 
 #### **Private Endpoint for Storage File**  
 - **Creates a Private Endpoint** (`privateEndpointStorageFile`) for a **Storage Account**.  
