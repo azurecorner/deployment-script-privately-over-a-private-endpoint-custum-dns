@@ -120,7 +120,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-
 #### **Managed Identity**  
 - Defines a **User-Assigned Managed Identity** to provide secure access to Azure resources without storing credentials.  
 
-This setup enables secure private networking and DNS resolution for containerized workloads using Azure services. 🚀
+This setup enables secure private networking and DNS resolution for containerized workloads using Azure services. 
 
 
 ## 3. Use an Existing Storage Account  
@@ -214,7 +214,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   - The **roleDefinitionId** links to the defined role.  
   - The **principalType** is `ServicePrincipal`, indicating it applies to a service identity.  
 
-This setup ensures **secure and controlled access** to manage Azure Storage File data using a managed identity. 🔑🔒  
+This setup ensures **secure and controlled access** to manage Azure Storage File data using a managed identity. 
 
 ## 4. Configure private endpoint
 
