@@ -278,7 +278,7 @@ resource privateEndpointStorageFilePrivateDnsZoneGroup 'Microsoft.Network/privat
 - Associates the **Private Endpoint** with the **Private DNS Zone** (`privateStorageFileDnsZone`).  
 - Enables seamless **private access** to storage services without exposing them to the public internet.  
 
-This setup enhances **security** and **network isolation**, ensuring that storage traffic remains **private** and protected. 🔒🚀  
+This setup enhances **security** and **network isolation**, ensuring that storage traffic remains **private** and protected.
 
 ## 5. Configure a Container Instance  
 
@@ -372,7 +372,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01'
 - **Container Details:**  
   - The container is named using the variable `containerName` and is based on the image specified by `containerImage`.
   - **Resource Requests:**  
-    The container requests 1 CPU and 1.5 GB of memory. The memory is provided as a JSON value to ensure the correct data type.
+    The container requests 1 CPU and 1.5 GB of memory. 
   - **Port Exposure:**  
     It exposes TCP port 80, allowing network communication on this port.
 
@@ -406,7 +406,7 @@ This configuration deploys a containerized application in a secure, isolated net
 
 ---
 
-### 2. Bicep Code   
+### 6. Bicep Code   
 
 ```bicep
 @description('Specify a project name that is used for generating resource names.')
@@ -660,7 +660,7 @@ az group create -l $resourceGroupLocation -n $resourceGroupName
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFile -DeploymentDebugLogLevel All  
 ```
 
-## 6. Monitoring
+## 7. Monitoring
 
 During the deployment of the deployment script, we can observe the following resources listed in the resource group:
 
